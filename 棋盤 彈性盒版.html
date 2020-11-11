@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>棋盤</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: '標楷體';
+        }
+
+body{
+    margin: auto;
+    width: 100;
+}
+        .a1 {
+            display: flex;
+            width: 450px;
+            height: 500px;
+            border: 0.5px solid #000;
+            margin:100px auto;
+            position: relative;
+        }
+        
+
+/* 開始 */
+        .container {
+            display: flex;
+            width: 385px;
+            height: 450px;
+            border-left: 0.5px solid #000;
+            border-right: 0.5px solid #000;
+            margin:-35px 20px;
+            z-index: 0;
+           
+        }
+       
+        /* 橫的均分 */
+    .colum-flex{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content:space-between;
+        align-items: stretch;
+       
+        
+    }
+    .line1{
+     position: absolute;
+      border-top:0.5px solid #000;
+      border-bottom: 0.5px solid #000;
+      margin:37px 36px;
+      height: 45px;
+      width:84%;
+     
+    }
+
+    .line2{
+     position: absolute;
+      border-top:0.5px solid #000;
+      border-bottom: 0.5px solid #000;
+      margin:130px 36px;
+      height: 45px;
+      width:84%;
+    
+    }
+    .line3{
+     position: absolute;
+      border-top:0.5px solid #000;
+      border-bottom: 0.5px solid #000;
+      border-left: 0.5px solid #000;
+      /* border-right: 0.5px solid #000; */
+      margin:225px 36px;
+      height: 45px;
+      width:84%;
+      background: white;
+      z-index: -1;
+    }
+    .line4{
+     position: absolute;
+      border-top:0.5px solid #000;
+      border-bottom: 0.5px solid #000;
+      margin:320px 36px;
+      height: 45px;
+      width:84%;
+     
+    }
+    .line5{
+     position: absolute;
+      border-top:0.5px solid #000;
+      border-bottom: 0.5px solid #000;
+      margin:412px 36px;
+      height: 45px;
+      width:84%;
+    
+    }
+ /* 直的均分 */
+    .hline1{
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto 140px;
+      width:45px;
+      padding: 20px;
+      height: 370px;
+      top: 10%;
+      z-index: -2;
+          }
+          .hline1::before{
+              content: '';
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto 10px;
+      width:45px;
+      padding: 20px;
+      height: 381px;
+      top: -3%;
+      right: 45%;
+      z-index: -2;
+          }
+          .hline1::after{
+              content: '';
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto 10px;
+      width:45px;
+      padding: 20px;
+      height: 381px;
+      top: -3%;
+      right: -70%;
+      z-index: -2;
+          }
+          .hline2{
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto 10px;
+      width:45px;
+      padding: 20px;
+      height: 370px;
+      top: 10%;
+      left: 50%;
+      z-index: -2;
+          }
+          .hline2::before{
+              content: '';
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto 5px;
+      width:45px;
+      padding: 20px;
+      height: 370px;
+      top: 0%;
+      left: 50%;
+      z-index: -2;
+          }
+          .hline2::after{
+              content: '';
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto 105px;
+      width:45px;
+      padding: 20px;
+      height: 370px;
+      top: 0%;
+      right: 100%;
+      z-index: -2;
+          }
+          .hline3{
+      position: absolute;
+      border-right: 0.5px solid #000;
+      margin: auto;
+      width:45px;
+      padding: 20px;
+      height: 370px;
+      top: 10%;
+      left: -1%;
+      z-index: -2;
+          }
+
+.p1{
+    display: flex;
+    clear: both;
+    justify-content: space-around;
+}
+
+    /* 兩排文字 */
+        .p2 {
+            writing-mode: vertical-lr;
+            position: absolute;
+            left: -50px;
+            top: -10px;
+            font-size: 26px;
+            height: 600px;
+        }
+
+        .p3 {
+            writing-mode: vertical-lr;
+            position: absolute;
+            left: 470px;
+            top: -10px;
+            font-size: 26px;
+            height: 600px;
+        }
+            /* 做10個flex盒子 讓棋子去對齊 */
+       
+            .zero{
+            display: flex;
+            width: 420px;
+            height: 455px;
+            border: 0px solid rgb(34, 184, 114);
+            margin:20px auto ;
+            position: relative;
+            justify-content: space-between;
+            align-items:flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+          
+        }
+       
+.disk1{
+            display: flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: relative;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: flex-start;
+            background-color: white;
+            z-index: 1;
+
+        }
+        /* 紅棋放下來*/
+        .disk2{
+            display: flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items:flex-start;
+            background-color: white;
+            position: relative;
+            top: 0.5%;
+            z-index: 1;
+        }
+            /* 紅包 */
+            .disk3{
+        
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: flex-start;
+            background-color: white;
+            z-index: 1;
+            top: 21%;
+            left: 12%;
+            }
+            .disk3::before{
+                display: flex;
+            content: '包';
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content:center;
+            align-items:center;
+            background-color: white;
+            z-index: 1;
+            left: 890%;
+            }
+
+            /* 五卒 */
+            .template1{
+           display: flex;
+           width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 30%;
+            left: 1%;
+            }
+            .template1::before{
+                content: '卒';
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 0%;
+            left: 290%;
+            }
+            .template1::after{
+                content: '卒';
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 0%;
+            left: 590%;
+            }
+            .template2{
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 30%;
+            left: 69%;
+            }
+            .template2::before{
+                content: '卒';
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 0%;
+            left: 290%;
+            }
+            /* 五紅冰 */
+            .bandit{
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 62%;
+            left: 1%;
+            }
+            .bandit::before{
+                content: '兵';
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 0%;
+            left: 290%;
+            }
+            .bandit::after{
+                content: '兵';
+                display: flex;
+                width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 0%;
+            left: 590%;
+            }
+            .bandit2{
+           display: flex;
+           width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 62%;
+            left: 68%;
+            }
+            .bandit2::before{
+           content: '兵';
+           display: flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 0%;
+            left: 290%;
+            }
+            .woody{
+           display: flex;
+           width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top: 72.5%;
+            left: 80%;
+            }
+            .woody::before{
+           content: '炮';
+           display: flex;
+           width: 32px;
+            height: 32px;
+            border-radius: 50%;
+           position: absolute;
+            border: 0.5px solid rgb(0, 0, 0);
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: white;
+            z-index: 1;
+            top:0%;
+            left: -890%;
+            }
+        .font{
+        display: flex;
+        font-size: 1.5rem;
+        }
+        /* 紅字舉起來 */
+        .font2{
+        color: red;
+        font-size: 1.5rem;
+
+        }
+
+        .river{
+        display: flex;
+        font-size: 1.7rem;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 20%;
+        }
+
+    .rotate{
+    display:flex;
+    position: relative;
+    width: 100px;
+    height: 130px;
+    border-left: 0.5px solid #000;
+    transform: rotate(47deg);
+    margin: auto;
+    z-index: -1;
+    left: 8.5%;
+    top: 45%;
+}
+.rotate::before{
+    content: '';
+    display:flex;
+    position: relative;
+    width: 100px;
+    height: 130px;
+    border-left: 0.5px solid #000;
+    transform: rotate(85deg);
+    margin: auto;
+    z-index: 1;
+    right: 43%;
+    top: 35%;
+}
+.rotate2{
+    display:flex;
+    position: relative;
+    width: 110px;
+    height: 130px;
+    border-left: 0.5px solid #000;
+    transform: rotate(48deg);
+    margin: auto;
+    z-index: -1;
+    left: 102%;
+    top: 86%;
+}
+.rotate2::before{
+    content: '';
+    display:flex;
+    position: relative;
+    width: 100px;
+    height: 130px;
+    border-left: 0.5px solid #000;
+    transform: rotate(85deg);
+    margin: auto;
+    z-index: 1;
+    right: 46%;
+    top: 38%;
+}
+
+    </style>
+</head>
+<body>
+   
+
+    <!-- 背景 -->
+<class class="a1">
+    
+    <div class="zero">
+        
+        <div class="disk1 font"style="align-items: center";>車</div>
+        <div class="disk1 font"style="align-items: center";>馬</div>
+        <div class="disk1 font"style="align-items: center";>象</div>
+        <div class="disk1 font"style="align-items: center";>士</div>
+        <div class="disk1 font"style="align-items: center";>將</div>
+        <div class="disk1 font"style="align-items: center";>士</div>
+        <div class="disk1 font"style="align-items: center";>象</div>
+        <div class="disk1 font"style="align-items: center";>馬</div>
+        <div class="disk1 font"style="align-items: center";>車</div>
+        <div class="disk3 font"style="align-items: center";>包</div>
+        <div class="template1 font">卒</div>
+        <div class="template2 font">卒</div>
+        <div class="bandit font2">兵</div>
+        <div class="bandit2 font2">兵</div>
+        <div class="woody font2">炮</div>
+
+        
+
+
+        <div class="container"></div>
+      <!-- flexbox -->
+        <div class="disk2 font2"style="align-items: center";>俥</div>
+        <div class="disk2 font2"style="align-items: center";>馬</div>
+        <div class="disk2 font2"style="align-items: center";>象</div>
+        <div class="disk2 font2"style="align-items: center";>士</div>
+        <div class="disk2 font2"style="align-items: center";>帥</div>
+        <div class="disk2 font2"style="align-items: center";>士</div>
+        <div class="disk2 font2"style="align-items: center";>象</div>
+        <div class="disk2 font2"style="align-items: center";>馬</div>
+        <div class="disk2 font2"style="align-items: center";>俥</div>
+        <!-- <div class="container"> -->
+         
+    <!-- 橫線 -->
+</div>
+
+
+      
+            <!-- <div class="two"> </div> -->
+        <div class="line1"><div class="rotate"></div></div>
+        <div class="line2"></div>
+        <div class="line3"><p class="river">楚河&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp漢界</p></div>
+        <div class="line4"></div>
+        <div class="line5"></div>
+        <div class="line6"></div>
+        <div class="line7"></div>
+        <div class="line8"></div>
+       
+        <div class="hline1"><div class="rotate2"></div></div>
+        <div class="hline2"></div>
+        <div class="hline3"></div>
+        <div class="hline4"></div>
+
+
+    <div class="p2">棋盤裡，車無輪，馬無韁，叫聲將軍提防提防</div>
+    <div class="p3">圖畫裡，龍不吟，虎不嘯，小小書僮可笑可笑</div>
+</div>
+</body>
+
+</html> 
